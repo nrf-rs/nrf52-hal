@@ -8,8 +8,6 @@ use core::fmt;
 use core::ops::Deref;
 use core::sync::atomic::{compiler_fence, Ordering::SeqCst};
 
-use embedded_hal::digital::v2::OutputPin;
-
 #[cfg(any(feature = "52833", feature = "52840"))]
 use crate::pac::UARTE1;
 
@@ -19,7 +17,7 @@ use crate::pac::{uarte0_ns as uarte0, UARTE0_NS as UARTE0, UARTE1_NS as UARTE1};
 #[cfg(not(feature = "9160"))]
 use crate::pac::{uarte0, UARTE0};
 
-use crate::gpio::{Floating, Input, Output, Pin, PushPull};
+use crate::gpio::{AnyPin, PinExt};
 use crate::prelude::*;
 use crate::slice_in_ram_or;
 use crate::target_constants::EASY_DMA_SIZE;
@@ -42,36 +40,48 @@ impl<T> Uarte<T>
 where
     T: Instance,
 {
-    pub fn new(uarte: T, mut pins: Pins, parity: Parity, baudrate: Baudrate) -> Self {
+    pub fn new(uarte: T, pins: Pins, parity: Parity, baudrate: Baudrate) -> Self {
         // Select pins
+        pins.rxd.conf().write(|w| w.input().connect());
         uarte.psel.rxd.write(|w| {
             unsafe { w.bits(pins.rxd.psel_bits()) };
             w.connect().connected()
         });
-        pins.txd.set_high().unwrap();
+
+        pins.txd
+            .block()
+            .outset
+            .write(|w| unsafe { w.bits(1 << pins.txd.pin()) });
+        pins.txd.conf().write(|w| w.dir().output());
         uarte.psel.txd.write(|w| {
             unsafe { w.bits(pins.txd.psel_bits()) };
             w.connect().connected()
         });
 
         // Optional pins
-        uarte.psel.cts.write(|w| {
-            if let Some(ref pin) = pins.cts {
+        if let Some(ref pin) = pins.cts {
+            pin.conf().write(|w| w.input().connect());
+            uarte.psel.cts.write(|w| {
                 unsafe { w.bits(pin.psel_bits()) };
                 w.connect().connected()
-            } else {
-                w.connect().disconnected()
-            }
-        });
+            });
+        } else {
+            uarte.psel.cts.write(|w| w.connect().disconnected());
+        }
 
-        uarte.psel.rts.write(|w| {
-            if let Some(ref pin) = pins.rts {
+        if let Some(ref pin) = pins.rts {
+            pin.block()
+                .outset
+                .write(|w| unsafe { w.bits(1 << pin.pin()) });
+            pin.conf().write(|w| w.dir().output());
+
+            uarte.psel.rts.write(|w| {
                 unsafe { w.bits(pin.psel_bits()) };
                 w.connect().connected()
-            } else {
-                w.connect().disconnected()
-            }
-        });
+            });
+        } else {
+            uarte.psel.rts.write(|w| w.connect().disconnected());
+        }
 
         // Enable UARTE instance.
         uarte.enable.write(|w| w.enable().enabled());
@@ -327,15 +337,15 @@ where
         (
             self.0,
             Pins {
-                rxd: unsafe { Pin::from_psel_bits(rxd.bits()) },
-                txd: unsafe { Pin::from_psel_bits(txd.bits()) },
+                rxd: unsafe { AnyPin::from_psel_bits(rxd.bits()) },
+                txd: unsafe { AnyPin::from_psel_bits(txd.bits()) },
                 cts: if cts.connect().bit_is_set() {
-                    Some(unsafe { Pin::from_psel_bits(cts.bits()) })
+                    Some(unsafe { AnyPin::from_psel_bits(cts.bits()) })
                 } else {
                     None
                 },
                 rts: if rts.connect().bit_is_set() {
-                    Some(unsafe { Pin::from_psel_bits(rts.bits()) })
+                    Some(unsafe { AnyPin::from_psel_bits(rts.bits()) })
                 } else {
                     None
                 },
@@ -362,10 +372,10 @@ where
 }
 
 pub struct Pins {
-    pub rxd: Pin<Input<Floating>>,
-    pub txd: Pin<Output<PushPull>>,
-    pub cts: Option<Pin<Input<Floating>>>,
-    pub rts: Option<Pin<Output<PushPull>>>,
+    pub rxd: AnyPin,
+    pub txd: AnyPin,
+    pub cts: Option<AnyPin>,
+    pub rts: Option<AnyPin>,
 }
 
 #[derive(Debug)]

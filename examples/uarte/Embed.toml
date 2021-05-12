@@ -31,7 +31,7 @@ halt_afterwards = false
 
 [default.general]
 # The chip name of the chip to be debugged.
-chip = "nRF52840_xxAA"
+chip = "nRF52840"
 # A list of chip descriptions to be loaded during runtime.
 chip_descriptions = []
 # The default log level to be used. Possible values are one of:

@@ -27,6 +27,11 @@ pub use nrf52840_pac as pac;
 #[cfg(feature = "9160")]
 pub use nrf9160_pac as pac;
 
+pub mod gpio;
+pub mod timer;
+pub mod uarte;
+
+/*
 #[cfg(feature = "51")]
 pub mod adc;
 #[cfg(not(feature = "9160"))]
@@ -81,14 +86,15 @@ pub mod uarte;
 #[cfg(not(feature = "9160"))]
 pub mod uicr;
 pub mod wdt;
+*/
 
 pub mod prelude {
     pub use crate::hal::digital::v2::*;
     pub use crate::hal::prelude::*;
 
-    #[cfg(not(feature = "9160"))]
-    pub use crate::ppi::{ConfigurablePpi, Ppi};
-    pub use crate::time::U32Ext;
+    //#[cfg(not(feature = "9160"))]
+    //pub use crate::ppi::{ConfigurablePpi, Ppi};
+    //pub use crate::time::U32Ext;
 }
 
 /// Length of Nordic EasyDMA differs for MCUs
@@ -165,6 +171,9 @@ impl DmaSlice {
     }
 }
 
+pub use crate::uarte::Uarte;
+
+/*
 pub use crate::clocks::Clocks;
 #[cfg(not(feature = "51"))]
 pub use crate::delay::Delay;
@@ -192,3 +201,4 @@ pub use crate::twim::Twim;
 pub use crate::uart::Uart;
 #[cfg(not(feature = "51"))]
 pub use crate::uarte::Uarte;
+*/

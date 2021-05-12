@@ -1,14 +1,14 @@
 [package]
-name = "blinky-button-demo"
+name = "uarte"
 version = "0.1.0"
-authors = ["Andres O. Vela"]
 edition = "2018"
+publish = false
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
 cortex-m = "0.6.2"
-cortex-m-rt = "0.6.12"
+cortex-m-rt = "0.6.7"
 rtt-target = {version = "0.2.0", features = ["cortex-m"] }
 nrf52840-hal = { features = ["rt"], path = "../../nrf52840-hal" }
 

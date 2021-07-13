@@ -44,10 +44,38 @@ jobs:
           - rust_version: stable
             rustflags: --deny warnings
 
+  hil:
+    runs-on: ubuntu-latest
+    # The secrets are not supplied for 'pull_request' events, so don't run for those.
+    if: github.event_name == 'push'
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0  # everything
+    - name: Install SSH key
+      uses: shimataro/ssh-key-action@v2
+      with:
+        key: ${{ secrets.SSH_KEY }}
+        known_hosts: not needed
+    - name: Push changes to CI repository
+      run: |
+        git checkout -b hil-run
+        git remote add ci git@github.com:jonas-schievink/nrf-hal-ci.git
+        git push -f -u ci hil-run
+        sleep 5
+    - name: Trigger and wait for HIL workflow
+      uses: jonas-schievink/workflow-proxy@v1
+      with:
+        workflow: HIL
+        ref: hil-run
+        repo: jonas-schievink/nrf-hal-ci
+        token: ${{ secrets.PRIVATE_CI_PERSONAL_ACCESS_TOKEN }}
+        repost-logs: true
+
   ci:
     if: ${{ success() }}
     # all new jobs must be added to this list
-    needs: [build]
+    needs: [build, hil]
     runs-on: ubuntu-latest
     steps:
       - name: CI succeeded

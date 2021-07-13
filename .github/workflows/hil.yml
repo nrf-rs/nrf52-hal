@@ -1,0 +1,28 @@
+name: HIL
+
+on:
+  workflow_dispatch:
+
+env:
+  CARGO_TERM_COLOR: always
+
+jobs:
+  hil:
+    runs-on: self-hosted
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions-rs/toolchain@v1
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        target: thumbv7em-none-eabihf
+    - name: Install native dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y libusb-1.0-0-dev pkg-config
+    - name: Install Rust tooling
+      run: cargo install probe-run flip-link
+    - name: Run tests on hardware
+      working-directory: nrf52840-hal-tests
+      run: cargo test

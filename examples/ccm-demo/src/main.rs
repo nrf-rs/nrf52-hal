@@ -2,6 +2,8 @@
 #![no_main]
 
 // Import the right HAL/PAC crate, depending on the target chip
+#[cfg(feature = "51")]
+pub use nrf51_hal as hal;
 #[cfg(feature = "52810")]
 pub use nrf52810_hal as hal;
 #[cfg(feature = "52811")]
@@ -53,6 +55,10 @@ fn main() -> ! {
 
     let mut ccm_data_enc = CcmData::new(KEY, iv);
     let mut ccm_data_dec = CcmData::new(KEY, iv);
+
+    #[cfg(feature = "51")]
+    let mut ccm = Ccm::init(p.CCM, p.AAR, DataRate::_1Mbit);
+    #[cfg(not(feature = "51"))]
     let mut ccm = Ccm::init(p.CCM, p.AAR, DataRate::_2Mbit);
 
     let mut clear_buffer = [0u8; 254];

@@ -5,6 +5,7 @@ This CCM (cipher block chaining) encryption demo initialises a text message of t
 ## How to run
 
 Choose the microcontroller with one of the following features:
+- 51
 - 52810
 - 52811
 - 52832

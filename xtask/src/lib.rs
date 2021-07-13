@@ -3,6 +3,7 @@ use std::{fs, process::Command};
 pub static HALS: &[(&str, &str)] = &[
     ("nrf51-hal", "thumbv6m-none-eabi"),
     ("nrf9160-hal", "thumbv8m.main-none-eabihf"),
+    ("nrf52805-hal", "thumbv7em-none-eabi"),
     ("nrf52810-hal", "thumbv7em-none-eabi"),
     ("nrf52811-hal", "thumbv7em-none-eabi"),
     ("nrf52832-hal", "thumbv7em-none-eabihf"),
@@ -12,11 +13,11 @@ pub static HALS: &[(&str, &str)] = &[
 
 pub static EXAMPLES: &[(&str, &[&str])] = &[
     ("blinky-button-demo", &[]),
-    ("ccm-demo", &["52810", "52811", "52832", "52833", "52840"]),
+    ("ccm-demo", &["52805", "52810", "52811", "52832", "52833", "52840"]),
     ("comp-demo", &[]),
     (
         "ecb-demo",
-        &["51", "52810", "52811", "52832", "52833", "52840"],
+        &["51", "52805", "52810", "52811", "52832", "52833", "52840"],
     ),
     ("hello-world", &["52840", "9160"]),
     ("gpiote-demo", &[]),
@@ -31,7 +32,7 @@ pub static EXAMPLES: &[(&str, &[&str])] = &[
     ("pwm-demo", &["52840"]),
     ("qdec-demo", &[]),
     ("rtc-demo", &[]),
-    ("rtic-demo", &["51", "52810", "52811", "52832", "52840"]),
+    ("rtic-demo", &["51", "52805", "52810", "52811", "52832", "52840"]),
     ("spi-demo", &[]),
     ("spis-demo", &[]),
     ("twi-ssd1306", &["52832", "52840"]),

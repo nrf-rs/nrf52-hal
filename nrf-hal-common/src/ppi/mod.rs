@@ -18,6 +18,9 @@ cfg_if! {
     if #[cfg(feature = "51")] {
         mod event_nrf51;
         mod task_nrf51;
+    } else if #[cfg(feature = "52805")] {
+        mod event_nrf52805;
+        mod task_nrf52805;
     } else if #[cfg(feature = "52810")] {
         mod event_nrf52810;
         mod task_nrf52810;

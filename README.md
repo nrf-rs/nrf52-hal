@@ -17,6 +17,7 @@ Every nRF chip has its own crate, listed below:
 | Crate | Docs | crates.io | target |
 |-------|------|-----------|--------|
 | [`nrf51-hal`](./nrf51-hal) | [![docs.rs](https://docs.rs/nrf51-hal/badge.svg)](https://docs.rs/nrf51-hal) | [![crates.io](https://img.shields.io/crates/d/nrf51-hal.svg)](https://crates.io/crates/nrf51-hal) | `thumbv6m-none-eabi` |
+| [`nrf52805-hal`](./nrf52805-hal) | [![docs.rs](https://docs.rs/nrf52805-hal/badge.svg)](https://docs.rs/nrf52805-hal) | [![crates.io](https://img.shields.io/crates/d/nrf52805-hal.svg)](https://crates.io/crates/nrf52805-hal) | `thumbv7em-none-eabi` |
 | [`nrf52810-hal`](./nrf52810-hal) | [![docs.rs](https://docs.rs/nrf52810-hal/badge.svg)](https://docs.rs/nrf52810-hal) | [![crates.io](https://img.shields.io/crates/d/nrf52810-hal.svg)](https://crates.io/crates/nrf52810-hal) | `thumbv7em-none-eabi` |
 | [`nrf52811-hal`](./nrf52811-hal) | [![docs.rs](https://docs.rs/nrf52811-hal/badge.svg)](https://docs.rs/nrf52811-hal) | [![crates.io](https://img.shields.io/crates/d/nrf52811-hal.svg)](https://crates.io/crates/nrf52811-hal) | `thumbv7em-none-eabi` |
 | [`nrf52832-hal`](./nrf52832-hal) | [![docs.rs](https://docs.rs/nrf52832-hal/badge.svg)](https://docs.rs/nrf52832-hal) | [![crates.io](https://img.shields.io/crates/d/nrf52832-hal.svg)](https://crates.io/crates/nrf52832-hal) | `thumbv7em-none-eabihf` |
@@ -28,6 +29,7 @@ Every nRF chip has its own crate, listed below:
 
 | Device | Product Specification | DK Reference Guide |
 |-------|------|-----------|
+| [`nRF52805`](https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52805) | [`v1.2`](https://infocenter.nordicsemi.com/pdf/nRF52805_PS_v1.2.pdf) | [`v1.3.1*`](https://infocenter.nordicsemi.com/pdf/nRF52_DK_User_Guide_v1.3.1.pdf) |
 | [`nRF52810`](https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52810) | [`v1.3`](https://infocenter.nordicsemi.com/pdf/nRF52810_PS_v1.3.pdf) | [`v1.3.1*`](https://infocenter.nordicsemi.com/pdf/nRF52_DK_User_Guide_v1.3.1.pdf) |
 | [`nRF52811`](https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52811) | [`v1.0`](https://infocenter.nordicsemi.com/pdf/nRF52811_PS_v1.0.pdf) | [`v1.3.1*`](https://infocenter.nordicsemi.com/pdf/nRF52_DK_User_Guide_v1.3.1.pdf) |
 | [`nRF52832`](https://www.nordicsemi.com/Products/Low-power-short-range-wireless/nRF52832) | [`v1.4`](https://infocenter.nordicsemi.com/pdf/nRF52832_PS_v1.4.pdf) | [`v1.3.1*`](https://infocenter.nordicsemi.com/pdf/nRF52_DK_User_Guide_v1.3.1.pdf) |

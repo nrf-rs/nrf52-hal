@@ -1,6 +1,7 @@
 [workspace]
 members = [
   "xtask",
+  "nrf52805-hal",
   "nrf52810-hal",
   "nrf52811-hal",
   "nrf52832-hal",

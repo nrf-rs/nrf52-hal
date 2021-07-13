@@ -39,6 +39,10 @@ version = "0.2.3"
 optional = true
 version = "0.9.0"
 
+[dependencies.nrf52805-pac]
+optional = true
+version = "0.1.0"
+
 [dependencies.nrf52810-pac]
 optional = true
 version = "0.9.0"
@@ -74,6 +78,7 @@ version = "0.2.4"
 [features]
 doc = []
 51 = ["nrf51"]
+52805 = ["nrf52805-pac"]
 52810 = ["nrf52810-pac"]
 52811 = ["nrf52811-pac"]
 52832 = ["nrf52832-pac"]

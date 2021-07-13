@@ -2,6 +2,7 @@
 //!
 //! See product specification:
 //!
+//! - nrf52805: Section 4.5
 //! - nrf52810: Section 4.5
 //! - nrf52811: Section 4.5
 //! - nrf52832: Section 14

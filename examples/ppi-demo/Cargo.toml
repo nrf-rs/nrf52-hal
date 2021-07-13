@@ -10,6 +10,7 @@ cortex-m = "0.6.2"
 cortex-m-rt = "0.6.12"
 rtt-target = {version = "0.2.0", features = ["cortex-m"] }
 
+nrf52805-hal = { path = "../../nrf52805-hal", features = ["rt"], optional = true }
 nrf52810-hal = { path = "../../nrf52810-hal", features = ["rt"], optional = true }
 nrf52811-hal = { path = "../../nrf52811-hal", features = ["rt"], optional = true }
 nrf52832-hal = { path = "../../nrf52832-hal", features = ["rt"], optional = true }
@@ -24,6 +25,7 @@ test = false
 
 [features]
 51 = ["nrf51-hal"]
+52805 = ["nrf52805-hal"]
 52810 = ["nrf52810-hal"]
 52811 = ["nrf52811-hal"]
 52832 = ["nrf52832-hal"]

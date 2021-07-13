@@ -2,6 +2,8 @@
 #![no_main]
 
 // Import the right HAL/PAC crate, depending on the target chip
+#[cfg(feature = "52805")]
+pub use nrf52805_hal as hal;
 #[cfg(feature = "52810")]
 pub use nrf52810_hal as hal;
 #[cfg(feature = "52811")]

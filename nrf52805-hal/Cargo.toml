@@ -1,0 +1,36 @@
+[package]
+name = "nrf52805-hal"
+version = "0.12.2"
+edition = "2018"
+description = "HAL for nRF52805 microcontrollers"
+readme = "../README.md"
+
+repository = "https://github.com/nrf-rs/nrf-hal"
+authors = [
+    "James Munns <james@onevariable.com>",
+    "Hanno Braun <hanno@braun-robotics.com>",
+    "John Scarrott <johnps@outlook.com>",
+    "Wez Furlong <wez@wezfurlong.org>",
+    "Ferdia McKeogh <ferdia@mckeogh.tech>",
+]
+categories = ["embedded", "hardware-support", "no-std"]
+keywords = ["arm", "cortex-m", "nrf52", "hal", "nrf52805"]
+license = "MIT OR Apache-2.0"
+
+[dependencies]
+nrf52805-pac = "0.1.0"
+
+[dependencies.nrf-hal-common]
+path = "../nrf-hal-common"
+default-features = false
+features = ["52805"]
+version = "=0.12.2"
+
+[dependencies.embedded-hal]
+features = ["unproven"]
+version = "0.2.3"
+
+[features]
+doc = []
+rt = ["nrf52805-pac/rt"]
+default = ["rt"]

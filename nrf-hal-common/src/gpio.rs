@@ -259,7 +259,7 @@ impl<MODE> Pin<MODE> {
     }
 }
 
-impl<MODE> InputPin for Pin<Input<MODE>> {
+impl<MODE> InputPin for Pin<MODE> {
     type Error = Void;
 
     fn is_high(&self) -> Result<bool, Self::Error> {
@@ -529,7 +529,7 @@ macro_rules! gpio {
                     }
                 }
 
-                impl<MODE> InputPin for $PXi<Input<MODE>> {
+                impl<MODE> InputPin for $PXi<MODE> {
                     type Error = Void;
 
                     fn is_high(&self) -> Result<bool, Self::Error> {
